@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker build -t ros_serial_update .
+docker build -t ros_serial_update --no-cache .
 
 docker run -d --name ros_serial_update ros_serial_update roscore
 
