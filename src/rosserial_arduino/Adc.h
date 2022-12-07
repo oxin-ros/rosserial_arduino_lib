@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "ros/msg.h"
-#include "ArduinoIncludes.h"
 
 namespace rosserial_arduino
 {
@@ -84,16 +83,8 @@ namespace rosserial_arduino
      return offset;
     }
 
-    #ifdef ESP8266
-        const char * getType() { return  ("rosserial_arduino/Adc");};
-    #else
-        const char * getType() { return  PSTR("rosserial_arduino/Adc");};
-    #endif
-    #ifdef ESP8266
-        const char * getMD5() { return  ("6d7853a614e2e821319068311f2af25b");};
-    #else
-        const char * getMD5() { return  PSTR("6d7853a614e2e821319068311f2af25b");};
-    #endif
+    const char * getType(){ return "rosserial_arduino/Adc"; };
+    const char * getMD5(){ return "6d7853a614e2e821319068311f2af25b"; };
 
   };
 
