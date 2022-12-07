@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 docker build -t ros_serial_update --no-cache .
 
 docker run -d --name ros_serial_update ros_serial_update roscore
@@ -9,6 +11,10 @@ docker cp ros_serial_update:/tmp/ros_lib ./
 docker stop ros_serial_update
 
 docker rm ros_serial_update
+
+rm -rf ./src
+
+mkdir -p ./src
 
 cp -Rf ./ros_lib/* ./src
 
