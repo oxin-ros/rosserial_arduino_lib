@@ -25,12 +25,12 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash \
 # Build ROS Serial
 RUN source /opt/ros/$ROS_DISTRO/setup.bash \
     && cd $CATKIN_WS/src \
-    && git clone https://github.com/ros-drivers/rosserial.git -b melodic-devel \
+    && git clone https://github.com/ros-drivers/rosserial.git \
     && cd $CATKIN_WS \
     && catkin_make \
     && catkin_make install
 
 # Create ROS Serial Arduino builder
-RUN source /opt/ros/$ROS_DISTRO/setup.bash \
+RUN source $CATKIN_WS/install/setup.bash \
     && cd /tmp \
     && rosrun rosserial_arduino make_libraries.py .
