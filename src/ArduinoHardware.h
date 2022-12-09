@@ -1,4 +1,4 @@
-/* 
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Willow Garage, Inc.
@@ -15,7 +15,7 @@
  *    disclaimer in the documentation and/or other materials provided
  *    with the distribution.
  *  * Neither the name of Willow Garage, Inc. nor the names of its
- *    contributors may be used to endorse or promote prducts derived
+ *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -54,10 +54,14 @@
 #elif defined(USE_USBCON)
   // Arduino Leonardo USB Serial Port
   #define SERIAL_CLASS Serial_
-#elif (defined(__STM32F1__) and !(defined(USE_STM32_HW_SERIAL))) or defined(SPARK) 
+#elif (defined(__STM32F1__) and !(defined(USE_STM32_HW_SERIAL))) or defined(SPARK)
   // Stm32duino Maple mini USB Serial Port
   #define SERIAL_CLASS USBSerial
-#else 
+#elif (CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32S3)
+  // Serial used for USB CDC on esp32c3 or esp32s3.
+  #include <HWCDC.h>
+  #define SERIAL_CLASS HWCDC
+#else
   #include <HardwareSerial.h>  // Arduino AVR
   #define SERIAL_CLASS HardwareSerial
 #endif
@@ -88,17 +92,17 @@ class ArduinoHardware {
     void setPort(SERIAL_CLASS* io){
       this->iostream = io;
     }
-  
+
     void setBaud(long baud){
       this->baud_= baud;
     }
-  
+
     int getBaud(){return baud_;}
 
     void init(){
 #if defined(USE_USBCON)
       // Startup delay as a fail-safe to upload a new sketch
-      delay(3000); 
+      delay(3000);
 #endif
       iostream->begin(baud_);
     }

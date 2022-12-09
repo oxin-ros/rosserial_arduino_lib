@@ -25,7 +25,7 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash \
 # Build ROS Serial
 RUN source /opt/ros/$ROS_DISTRO/setup.bash \
     && cd $CATKIN_WS/src \
-    && git clone https://github.com/ros-drivers/rosserial.git \
+    && git clone https://github.com/oxin-ros/rosserial.git \
     && cd $CATKIN_WS \
     && catkin_make \
     && catkin_make install
